@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.sicau.count.dao.SoloMapper">
+  <resultMap id="BaseResultMap" type="cn.sicau.count.domain.Solo">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="campus" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="classes" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="project" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="userName" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="userNumber" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="score" javaType="java.lang.Double" jdbcType="DOUBLE" />
+      <arg column="grade" javaType="java.lang.Integer" jdbcType="INTEGER" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, campus, classes, project, userName, userNumber, score, grade
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from solo
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from solo
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.sicau.count.domain.Solo">
+    insert into solo (id, campus, classes, 
+      project, userName, userNumber, 
+      score, grade)
+    values (#{id,jdbcType=INTEGER}, #{campus,jdbcType=VARCHAR}, #{classes,jdbcType=VARCHAR}, 
+      #{project,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{usernumber,jdbcType=VARCHAR}, 
+      #{score,jdbcType=DOUBLE}, #{grade,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.sicau.count.domain.Solo">
+    insert into solo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="campus != null">
+        campus,
+      </if>
+      <if test="classes != null">
+        classes,
+      </if>
+      <if test="project != null">
+        project,
+      </if>
+      <if test="username != null">
+        userName,
+      </if>
+      <if test="usernumber != null">
+        userNumber,
+      </if>
+      <if test="score != null">
+        score,
+      </if>
+      <if test="grade != null">
+        grade,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="campus != null">
+        #{campus,jdbcType=VARCHAR},
+      </if>
+      <if test="classes != null">
+        #{classes,jdbcType=VARCHAR},
+      </if>
+      <if test="project != null">
+        #{project,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="usernumber != null">
+        #{usernumber,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null">
+        #{score,jdbcType=DOUBLE},
+      </if>
+      <if test="grade != null">
+        #{grade,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.sicau.count.domain.Solo">
+    update solo
+    <set>
+      <if test="campus != null">
+        campus = #{campus,jdbcType=VARCHAR},
+      </if>
+      <if test="classes != null">
+        classes = #{classes,jdbcType=VARCHAR},
+      </if>
+      <if test="project != null">
+        project = #{project,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        userName = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="usernumber != null">
+        userNumber = #{usernumber,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null">
+        score = #{score,jdbcType=DOUBLE},
+      </if>
+      <if test="grade != null">
+        grade = #{grade,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.sicau.count.domain.Solo">
+    update solo
+    set campus = #{campus,jdbcType=VARCHAR},
+      classes = #{classes,jdbcType=VARCHAR},
+      project = #{project,jdbcType=VARCHAR},
+      userName = #{username,jdbcType=VARCHAR},
+      userNumber = #{usernumber,jdbcType=VARCHAR},
+      score = #{score,jdbcType=DOUBLE},
+      grade = #{grade,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.sicau.count.dao.RecordMapper">
+  <resultMap id="BaseResultMap" type="cn.sicau.count.domain.Record">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="reProject" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="record" javaType="java.lang.Double" jdbcType="DOUBLE" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, reProject, record
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from record
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from record
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.sicau.count.domain.Record">
+    insert into record (id, reProject, record
+      )
+    values (#{id,jdbcType=INTEGER}, #{reproject,jdbcType=VARCHAR}, #{record,jdbcType=DOUBLE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.sicau.count.domain.Record">
+    insert into record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="reproject != null">
+        reProject,
+      </if>
+      <if test="record != null">
+        record,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="reproject != null">
+        #{reproject,jdbcType=VARCHAR},
+      </if>
+      <if test="record != null">
+        #{record,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.sicau.count.domain.Record">
+    update record
+    <set>
+      <if test="reproject != null">
+        reProject = #{reproject,jdbcType=VARCHAR},
+      </if>
+      <if test="record != null">
+        record = #{record,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.sicau.count.domain.Record">
+    update record
+    set reProject = #{reproject,jdbcType=VARCHAR},
+      record = #{record,jdbcType=DOUBLE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
