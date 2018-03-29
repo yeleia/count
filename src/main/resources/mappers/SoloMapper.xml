@@ -9,12 +9,13 @@
       <arg column="project" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="userName" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="userNumber" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="userSex" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="score" javaType="java.lang.Double" jdbcType="DOUBLE" />
       <arg column="grade" javaType="java.lang.Integer" jdbcType="INTEGER" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List">
-    id, campus, classes, project, userName, userNumber, score, grade
+    id, campus, classes, project, userName, userNumber, userSex, score, grade
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -29,10 +30,12 @@
   <insert id="insert" parameterType="cn.sicau.count.domain.Solo">
     insert into solo (id, campus, classes, 
       project, userName, userNumber, 
-      score, grade)
+      userSex, score, grade
+      )
     values (#{id,jdbcType=INTEGER}, #{campus,jdbcType=VARCHAR}, #{classes,jdbcType=VARCHAR}, 
       #{project,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{usernumber,jdbcType=VARCHAR}, 
-      #{score,jdbcType=DOUBLE}, #{grade,jdbcType=INTEGER})
+      #{usersex,jdbcType=VARCHAR}, #{score,jdbcType=DOUBLE}, #{grade,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="cn.sicau.count.domain.Solo">
     insert into solo
@@ -54,6 +57,9 @@
       </if>
       <if test="usernumber != null">
         userNumber,
+      </if>
+      <if test="usersex != null">
+        userSex,
       </if>
       <if test="score != null">
         score,
@@ -81,6 +87,9 @@
       <if test="usernumber != null">
         #{usernumber,jdbcType=VARCHAR},
       </if>
+      <if test="usersex != null">
+        #{usersex,jdbcType=VARCHAR},
+      </if>
       <if test="score != null">
         #{score,jdbcType=DOUBLE},
       </if>
@@ -107,6 +116,9 @@
       <if test="usernumber != null">
         userNumber = #{usernumber,jdbcType=VARCHAR},
       </if>
+      <if test="usersex != null">
+        userSex = #{usersex,jdbcType=VARCHAR},
+      </if>
       <if test="score != null">
         score = #{score,jdbcType=DOUBLE},
       </if>
@@ -123,6 +135,7 @@
       project = #{project,jdbcType=VARCHAR},
       userName = #{username,jdbcType=VARCHAR},
       userNumber = #{usernumber,jdbcType=VARCHAR},
+      userSex = #{usersex,jdbcType=VARCHAR},
       score = #{score,jdbcType=DOUBLE},
       grade = #{grade,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}

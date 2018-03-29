@@ -13,17 +13,20 @@ public class Solo {
 
     private String usernumber;
 
+    private String usersex;
+
     private Double score;
 
     private Integer grade;
 
-    public Solo(Integer id, String campus, String classes, String project, String username, String usernumber, Double score, Integer grade) {
+    public Solo(Integer id, String campus, String classes, String project, String username, String usernumber, String usersex, Double score, Integer grade) {
         this.id = id;
         this.campus = campus;
         this.classes = classes;
         this.project = project;
         this.username = username;
         this.usernumber = usernumber;
+        this.usersex = usersex;
         this.score = score;
         this.grade = grade;
     }
@@ -78,6 +81,14 @@ public class Solo {
 
     public void setUsernumber(String usernumber) {
         this.usernumber = usernumber == null ? null : usernumber.trim();
+    }
+
+    public String getUsersex() {
+        return usersex;
+    }
+
+    public void setUsersex(String usersex) {
+        this.usersex = usersex == null ? null : usersex.trim();
     }
 
     public Double getScore() {

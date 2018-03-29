@@ -6,10 +6,11 @@
       <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="reProject" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="record" javaType="java.lang.Double" jdbcType="DOUBLE" />
+      <arg column="recordSex" javaType="java.lang.String" jdbcType="VARCHAR" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List">
-    id, reProject, record
+    id, reProject, record, recordSex
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -17,15 +18,16 @@
     from record
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="getAll" resultType="cn.sicau.count.domain.Record">
+    SELECT * FROM record
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from record
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="cn.sicau.count.domain.Record">
-    insert into record (id, reProject, record
-      )
-    values (#{id,jdbcType=INTEGER}, #{reproject,jdbcType=VARCHAR}, #{record,jdbcType=DOUBLE}
-      )
+    insert into record (id, reProject, record, recordSex)
+    values (NULL , #{reproject,jdbcType=VARCHAR}, #{record,jdbcType=DOUBLE},#{recordsex,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cn.sicau.count.domain.Record">
     insert into record
@@ -39,6 +41,9 @@
       <if test="record != null">
         record,
       </if>
+      <if test="recordsex != null">
+        recordSex,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -49,6 +54,9 @@
       </if>
       <if test="record != null">
         #{record,jdbcType=DOUBLE},
+      </if>
+      <if test="recordsex != null">
+        #{recordsex,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -61,13 +69,17 @@
       <if test="record != null">
         record = #{record,jdbcType=DOUBLE},
       </if>
+      <if test="recordsex != null">
+        recordSex = #{recordsex,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.sicau.count.domain.Record">
     update record
     set reProject = #{reproject,jdbcType=VARCHAR},
-      record = #{record,jdbcType=DOUBLE}
+      record = #{record,jdbcType=DOUBLE},
+      recordSex = #{recordsex,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -7,10 +7,13 @@ public class Record {
 
     private Double record;
 
-    public Record(Integer id, String reproject, Double record) {
+    private String recordsex;
+
+    public Record(Integer id, String reproject, Double record, String recordsex) {
         this.id = id;
         this.reproject = reproject;
         this.record = record;
+        this.recordsex = recordsex;
     }
 
     public Record() {
@@ -39,5 +42,13 @@ public class Record {
 
     public void setRecord(Double record) {
         this.record = record;
+    }
+
+    public String getRecordsex() {
+        return recordsex;
+    }
+
+    public void setRecordsex(String recordsex) {
+        this.recordsex = recordsex == null ? null : recordsex.trim();
     }
 }

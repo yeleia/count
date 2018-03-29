@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.sicau.count.dao.TwoLevelMapper">
+  <resultMap id="BaseResultMap" type="cn.sicau.count.domain.TwoLevel">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="levelPro" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="levelScore" javaType="java.lang.Double" jdbcType="DOUBLE" />
+      <arg column="levelSex" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, levelPro, levelScore, levelSex
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from twoLevel
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from twoLevel
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.sicau.count.domain.TwoLevel">
+    insert into twoLevel (id, levelPro, levelScore, 
+      levelSex)
+    values (#{id,jdbcType=INTEGER}, #{levelpro,jdbcType=VARCHAR}, #{levelscore,jdbcType=DOUBLE}, 
+      #{levelsex,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.sicau.count.domain.TwoLevel">
+    insert into twoLevel
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="levelpro != null">
+        levelPro,
+      </if>
+      <if test="levelscore != null">
+        levelScore,
+      </if>
+      <if test="levelsex != null">
+        levelSex,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="levelpro != null">
+        #{levelpro,jdbcType=VARCHAR},
+      </if>
+      <if test="levelscore != null">
+        #{levelscore,jdbcType=DOUBLE},
+      </if>
+      <if test="levelsex != null">
+        #{levelsex,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.sicau.count.domain.TwoLevel">
+    update twoLevel
+    <set>
+      <if test="levelpro != null">
+        levelPro = #{levelpro,jdbcType=VARCHAR},
+      </if>
+      <if test="levelscore != null">
+        levelScore = #{levelscore,jdbcType=DOUBLE},
+      </if>
+      <if test="levelsex != null">
+        levelSex = #{levelsex,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.sicau.count.domain.TwoLevel">
+    update twoLevel
+    set levelPro = #{levelpro,jdbcType=VARCHAR},
+      levelScore = #{levelscore,jdbcType=DOUBLE},
+      levelSex = #{levelsex,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
