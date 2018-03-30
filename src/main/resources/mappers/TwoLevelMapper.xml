@@ -18,7 +18,10 @@
     from twoLevel
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <select id="getAll" resultType="cn.sicau.count.domain.TwoLevel">
+      SELECT * FROM twoLevel
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from twoLevel
     where id = #{id,jdbcType=INTEGER}
   </delete>
