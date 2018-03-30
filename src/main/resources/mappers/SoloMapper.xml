@@ -23,7 +23,10 @@
     from solo
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <select id="getAllBoyOneHundredScore" resultType="cn.sicau.count.domain.Solo">
+      SELECT * FROM solo WHERE userSex="0" AND project="一百米"
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from solo
     where id = #{id,jdbcType=INTEGER}
   </delete>
