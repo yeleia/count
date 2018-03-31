@@ -17,7 +17,7 @@ public class BoySoloServiceImpl implements BoySoloService {
     @Autowired
     private SoloMapper soloMapper;
     @Override
-    public String addBoyHunderdScore(Solo solo) {
+    public String addBoyScore(Solo solo) {
         try {
             soloMapper.insert(solo);
             return "success";
@@ -27,7 +27,7 @@ public class BoySoloServiceImpl implements BoySoloService {
 }
 
     @Override
-    public String updateBoyHunderdScore(Solo solo) {
+    public String updateBoyScore(Solo solo) {
         try {
             soloMapper.updateByPrimaryKeySelective(solo);
             return "success";

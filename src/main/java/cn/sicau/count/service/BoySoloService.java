@@ -9,8 +9,8 @@ import java.util.List;
  * @date 18-3-30
  */
 public interface BoySoloService {
-     String addBoyHunderdScore(Solo solo);
-     String updateBoyHunderdScore(Solo solo);
+     String addBoyScore(Solo solo);
+     String updateBoyScore(Solo solo);
      Integer deleteById(Integer id);
      List<Solo> getAllBoyHundredScore();
 }
