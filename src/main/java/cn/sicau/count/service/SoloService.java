@@ -8,9 +8,9 @@ import java.util.List;
  * @author yelei
  * @date 18-3-30
  */
-public interface BoySoloService {
-     String addBoyScore(Solo solo);
-     String updateBoyScore(Solo solo);
+public interface SoloService {
+     String addSoloScore(Solo solo);
+     String updateSoloScore(Solo solo);
      Integer deleteById(Integer id);
      List<Solo> getAllBoyHundredScore();
 }

@@ -2,7 +2,7 @@ package cn.sicau.count.service.impl;
 
 import cn.sicau.count.dao.SoloMapper;
 import cn.sicau.count.domain.Solo;
-import cn.sicau.count.service.BoySoloService;
+import cn.sicau.count.service.SoloService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,11 +13,11 @@ import java.util.List;
  * @date 18-3-30
  */
 @Service("soloService")
-public class BoySoloServiceImpl implements BoySoloService {
+public class SoloServiceImpl implements SoloService {
     @Autowired
     private SoloMapper soloMapper;
     @Override
-    public String addBoyScore(Solo solo) {
+    public String addSoloScore(Solo solo) {
         try {
             soloMapper.insert(solo);
             return "success";
@@ -27,7 +27,7 @@ public class BoySoloServiceImpl implements BoySoloService {
 }
 
     @Override
-    public String updateBoyScore(Solo solo) {
+    public String updateSoloScore(Solo solo) {
         try {
             soloMapper.updateByPrimaryKeySelective(solo);
             return "success";
