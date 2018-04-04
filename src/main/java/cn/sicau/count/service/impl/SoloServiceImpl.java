@@ -28,6 +28,7 @@ public class SoloServiceImpl implements SoloService {
 
     @Override
     public String updateSoloScore(Solo solo) {
+
         try {
             soloMapper.updateByPrimaryKeySelective(solo);
             return "success";

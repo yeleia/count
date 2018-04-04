@@ -20,6 +20,13 @@
     from team
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="getAllTeamScore" resultType="cn.sicau.count.domain.Team">
+    SELECT * FROM team
+  </select>
+  <select id="selectByproAndClass" resultType="cn.sicau.count.domain.Team">
+    SELECT * FROM team WHERE teamProject=#{teamProject} and teamClass=#{teamClass}
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from team
     where id = #{id,jdbcType=INTEGER}

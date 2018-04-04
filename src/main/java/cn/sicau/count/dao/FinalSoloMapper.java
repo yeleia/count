@@ -1,7 +1,9 @@
 package cn.sicau.count.dao;
 
 import cn.sicau.count.domain.FinalSolo;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface FinalSoloMapper {
     int deleteByPrimaryKey(Integer id);
 
