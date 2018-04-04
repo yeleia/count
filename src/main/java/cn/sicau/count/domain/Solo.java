@@ -9,6 +9,8 @@ public class Solo {
 
     private String project;
 
+    private String profession;
+
     private String username;
 
     private String usernumber;
@@ -19,11 +21,12 @@ public class Solo {
 
     private Integer grade;
 
-    public Solo(Integer id, String campus, String classes, String project, String username, String usernumber, String usersex, Double score, Integer grade) {
+    public Solo(Integer id, String campus, String classes, String project, String profession, String username, String usernumber, String usersex, Double score, Integer grade) {
         this.id = id;
         this.campus = campus;
         this.classes = classes;
         this.project = project;
+        this.profession = profession;
         this.username = username;
         this.usernumber = usernumber;
         this.usersex = usersex;
@@ -65,6 +68,14 @@ public class Solo {
 
     public void setProject(String project) {
         this.project = project == null ? null : project.trim();
+    }
+
+    public String getProfession() {
+        return profession;
+    }
+
+    public void setProfession(String profession) {
+        this.profession = profession == null ? null : profession.trim();
     }
 
     public String getUsername() {

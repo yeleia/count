@@ -1,7 +1,6 @@
 package cn.sicau.count;
 
 import cn.sicau.count.dao.RecordMapper;
-import cn.sicau.count.dao.SoloMapper;
 import cn.sicau.count.dao.UserMapper;
 import cn.sicau.count.domain.Record;
 import cn.sicau.count.domain.User;
@@ -11,8 +10,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

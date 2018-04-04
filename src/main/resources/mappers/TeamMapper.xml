@@ -7,12 +7,13 @@
       <arg column="teamCampus" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="teamProject" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="teamClass" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="teamProfession" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="teamScore" javaType="java.lang.Double" jdbcType="DOUBLE" />
       <arg column="teamGrade" javaType="java.lang.Integer" jdbcType="INTEGER" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List">
-    id, teamCampus, teamProject, teamClass, teamScore, teamGrade
+    id, teamCampus, teamProject, teamClass, teamProfession, teamScore, teamGrade
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -20,24 +21,23 @@
     from team
     where id = #{id,jdbcType=INTEGER}
   </select>
+    <select id="selectByproAndClass" resultType="cn.sicau.count.domain.Team">
+      SELECT * FROM team WHERE teamProject=#{teamproject} and teamClass=#{teamclass}
+    </select>
   <select id="getAllTeamScore" resultType="cn.sicau.count.domain.Team">
     SELECT * FROM team
   </select>
-  <select id="selectByproAndClass" resultType="cn.sicau.count.domain.Team">
-    SELECT * FROM team WHERE teamProject=#{teamProject} and teamClass=#{teamClass}
-  </select>
-
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from team
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="cn.sicau.count.domain.Team">
     insert into team (id, teamCampus, teamProject, 
-      teamClass, teamScore, teamGrade
-      )
+      teamClass, teamProfession, teamScore, 
+      teamGrade)
     values (#{id,jdbcType=INTEGER}, #{teamcampus,jdbcType=VARCHAR}, #{teamproject,jdbcType=VARCHAR}, 
-      #{teamclass,jdbcType=VARCHAR}, #{teamscore,jdbcType=DOUBLE}, #{teamgrade,jdbcType=INTEGER}
-      )
+      #{teamclass,jdbcType=VARCHAR}, #{teamprofession,jdbcType=VARCHAR}, #{teamscore,jdbcType=DOUBLE}, 
+      #{teamgrade,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="cn.sicau.count.domain.Team">
     insert into team
@@ -53,6 +53,9 @@
       </if>
       <if test="teamclass != null">
         teamClass,
+      </if>
+      <if test="teamprofession != null">
+        teamProfession,
       </if>
       <if test="teamscore != null">
         teamScore,
@@ -74,6 +77,9 @@
       <if test="teamclass != null">
         #{teamclass,jdbcType=VARCHAR},
       </if>
+      <if test="teamprofession != null">
+        #{teamprofession,jdbcType=VARCHAR},
+      </if>
       <if test="teamscore != null">
         #{teamscore,jdbcType=DOUBLE},
       </if>
@@ -94,6 +100,9 @@
       <if test="teamclass != null">
         teamClass = #{teamclass,jdbcType=VARCHAR},
       </if>
+      <if test="teamprofession != null">
+        teamProfession = #{teamprofession,jdbcType=VARCHAR},
+      </if>
       <if test="teamscore != null">
         teamScore = #{teamscore,jdbcType=DOUBLE},
       </if>
@@ -108,6 +117,7 @@
     set teamCampus = #{teamcampus,jdbcType=VARCHAR},
       teamProject = #{teamproject,jdbcType=VARCHAR},
       teamClass = #{teamclass,jdbcType=VARCHAR},
+      teamProfession = #{teamprofession,jdbcType=VARCHAR},
       teamScore = #{teamscore,jdbcType=DOUBLE},
       teamGrade = #{teamgrade,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}

@@ -9,15 +9,18 @@ public class Team {
 
     private String teamclass;
 
+    private String teamprofession;
+
     private Double teamscore;
 
     private Integer teamgrade;
 
-    public Team(Integer id, String teamcampus, String teamproject, String teamclass, Double teamscore, Integer teamgrade) {
+    public Team(Integer id, String teamcampus, String teamproject, String teamclass, String teamprofession, Double teamscore, Integer teamgrade) {
         this.id = id;
         this.teamcampus = teamcampus;
         this.teamproject = teamproject;
         this.teamclass = teamclass;
+        this.teamprofession = teamprofession;
         this.teamscore = teamscore;
         this.teamgrade = teamgrade;
     }
@@ -56,6 +59,14 @@ public class Team {
 
     public void setTeamclass(String teamclass) {
         this.teamclass = teamclass == null ? null : teamclass.trim();
+    }
+
+    public String getTeamprofession() {
+        return teamprofession;
+    }
+
+    public void setTeamprofession(String teamprofession) {
+        this.teamprofession = teamprofession == null ? null : teamprofession.trim();
     }
 
     public Double getTeamscore() {

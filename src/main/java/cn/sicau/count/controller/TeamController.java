@@ -28,7 +28,7 @@ public class TeamController {
      * @param team
      * @return
      */
-    @RequestMapping("/addTeamScoore")
+    @RequestMapping("/addTeamScore")
     @ResponseBody
     public Map<String,Object> addTeamScoore(Team team){
         if ("success".equals(teamService.addTeamScore(team))){

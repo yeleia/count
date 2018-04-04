@@ -43,8 +43,8 @@ public class SoloServiceImpl implements SoloService {
         return soloMapper.deleteByPrimaryKey(id);
     }
 
-    @Override
+  /*  @Override
     public List<Solo> getAllBoyHundredScore() {
         return soloMapper.getAllBoyOneHundredScore();
-    }
+    }*/
 }

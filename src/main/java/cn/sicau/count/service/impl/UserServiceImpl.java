@@ -4,7 +4,6 @@ import cn.sicau.count.dao.SoloMapper;
 import cn.sicau.count.dao.UserMapper;
 import cn.sicau.count.domain.Solo;
 import cn.sicau.count.domain.User;
-import cn.sicau.count.service.SoloService;
 import cn.sicau.count.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -12,5 +12,5 @@ public interface SoloService {
      String addSoloScore(Solo solo);
      String updateSoloScore(Solo solo);
      Integer deleteById(Integer id);
-     List<Solo> getAllBoyHundredScore();
+    /* List<Solo> getAllBoyHundredScore();*/
 }

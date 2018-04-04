@@ -7,6 +7,7 @@
       <arg column="campus" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="classes" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="project" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="profession" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="userName" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="userNumber" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="userSex" javaType="java.lang.String" jdbcType="VARCHAR" />
@@ -15,7 +16,7 @@
     </constructor>
   </resultMap>
   <sql id="Base_Column_List">
-    id, campus, classes, project, userName, userNumber, userSex, score, grade
+    id, campus, classes, project, profession, userName, userNumber, userSex, score, grade
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -23,11 +24,8 @@
     from solo
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <select id="getAllBoyOneHundredScore" resultType="cn.sicau.count.domain.Solo">
-    SELECT * from solo WHERE userSex="0" AND project="100米"
-  </select>
-   <select id="selectByUserNummberPro" resultType="cn.sicau.count.domain.Solo">
-      SELECT * FROM solo WHERE userNumber=#{userNumber} and project=#{project}
+    <select id="selectByUserNummberPro" resultType="cn.sicau.count.domain.Solo">
+      SELECT * FROM solo WHERE userNumber=#{usernumber} and project=#{project}
     </select>
   <select id="getAllSoloScore" resultType="cn.sicau.count.domain.Solo">
     SELECT * FROM solo
@@ -38,13 +36,13 @@
   </delete>
   <insert id="insert" parameterType="cn.sicau.count.domain.Solo">
     insert into solo (id, campus, classes, 
-      project, userName, userNumber, 
-      userSex, score, grade
-      )
+      project, profession, userName, 
+      userNumber, userSex, score, 
+      grade)
     values (#{id,jdbcType=INTEGER}, #{campus,jdbcType=VARCHAR}, #{classes,jdbcType=VARCHAR}, 
-      #{project,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{usernumber,jdbcType=VARCHAR}, 
-      #{usersex,jdbcType=VARCHAR}, #{score,jdbcType=DOUBLE}, #{grade,jdbcType=INTEGER}
-      )
+      #{project,jdbcType=VARCHAR}, #{profession,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
+      #{usernumber,jdbcType=VARCHAR}, #{usersex,jdbcType=VARCHAR}, #{score,jdbcType=DOUBLE}, 
+      #{grade,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="cn.sicau.count.domain.Solo">
     insert into solo
@@ -60,6 +58,9 @@
       </if>
       <if test="project != null">
         project,
+      </if>
+      <if test="profession != null">
+        profession,
       </if>
       <if test="username != null">
         userName,
@@ -90,6 +91,9 @@
       <if test="project != null">
         #{project,jdbcType=VARCHAR},
       </if>
+      <if test="profession != null">
+        #{profession,jdbcType=VARCHAR},
+      </if>
       <if test="username != null">
         #{username,jdbcType=VARCHAR},
       </if>
@@ -119,6 +123,9 @@
       <if test="project != null">
         project = #{project,jdbcType=VARCHAR},
       </if>
+      <if test="profession != null">
+        profession = #{profession,jdbcType=VARCHAR},
+      </if>
       <if test="username != null">
         userName = #{username,jdbcType=VARCHAR},
       </if>
@@ -142,6 +149,7 @@
     set campus = #{campus,jdbcType=VARCHAR},
       classes = #{classes,jdbcType=VARCHAR},
       project = #{project,jdbcType=VARCHAR},
+      profession = #{profession,jdbcType=VARCHAR},
       userName = #{username,jdbcType=VARCHAR},
       userNumber = #{usernumber,jdbcType=VARCHAR},
       userSex = #{usersex,jdbcType=VARCHAR},
