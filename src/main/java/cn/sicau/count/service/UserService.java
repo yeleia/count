@@ -14,5 +14,6 @@ public interface UserService {
     String addSoloScore(Solo solo);
     String updateSoloScore(Solo solo);
     String  deleteScoreById(Integer id);
-    List<Solo> getAllSoloScore();
+    List<Solo> getAllSoloScore(Integer tempPage,Integer pageCapacity);
+    Integer getCount();
 }

@@ -1,15 +1,17 @@
 package cn.sicau.count.domain;
 
+import cn.sicau.count.utils.TimeUtil;
+
 public class TwoLevel {
     private Integer id;
 
     private String levelpro;
 
-    private Double levelscore;
+    private String levelscore;
 
     private String levelsex;
 
-    public TwoLevel(Integer id, String levelpro, Double levelscore, String levelsex) {
+    public TwoLevel(Integer id, String levelpro, String levelscore, String levelsex) {
         this.id = id;
         this.levelpro = levelpro;
         this.levelscore = levelscore;
@@ -36,12 +38,12 @@ public class TwoLevel {
         this.levelpro = levelpro == null ? null : levelpro.trim();
     }
 
-    public Double getLevelscore() {
+    public String getLevelscore() {
         return levelscore;
     }
 
-    public void setLevelscore(Double levelscore) {
-        this.levelscore = levelscore;
+    public void setLevelscore(String levelscore) {
+        this.levelscore = TimeUtil.get8bitTime(levelscore);
     }
 
     public String getLevelsex() {

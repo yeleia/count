@@ -8,7 +8,9 @@ import cn.sicau.count.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author yelei
@@ -32,15 +34,19 @@ public class UserServiceImpl implements UserService{
         if (solo1!=null){
             return "error";
         }else {
-            soloMapper.insert(solo);
-            return "success";
-        }
+            Integer i=soloMapper.insert(solo);
+            if (i==1){
+                return "success";
+            }else {
+                return "bug";
+            }
 
+        }
     }
 
     @Override
     public String updateSoloScore(Solo solo) {
-        if (soloMapper.updateByPrimaryKeySelective(solo)!=0){
+        if (soloMapper.updateByPrimaryKeySelective(solo)==1){
             return "success";
         }else {
             return "error";
@@ -57,7 +63,17 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public List<Solo> getAllSoloScore() {
-        return soloMapper.getAllSoloScore();
+    public List<Solo> getAllSoloScore(Integer tempPage,Integer pageCapacity) {
+        Map<String,Object> map=new HashMap<>();
+        map.put("tempPage",tempPage);
+        map.put("pageCapacity",pageCapacity);
+        return soloMapper.getAllSoloScore(map);
     }
+
+    @Override
+    public Integer getCount() {
+        return soloMapper.getCount();
+    }
+
+
 }

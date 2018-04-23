@@ -1,26 +1,43 @@
 package cn.sicau.count.domain;
 
-public class FinalSolo {
+import cn.sicau.count.utils.ScoreInterface;
+import cn.sicau.count.utils.TimeUtil;
+
+public class FinalSolo implements ScoreInterface{
     private Integer id;
 
     private Integer soloid;
 
-    private Double secscore;
+    private String secscore;
 
+    //TODO chenge to doutle
     private Double finalscore;
 
-    private Integer finalgrade;
+    //TODO chenge to double
+    private Double finalgrade;
 
-    public FinalSolo(Integer id, Integer soloid, Double secscore, Double finalscore, Integer finalgrade) {
-        this.id = id;
-        this.soloid = soloid;
-        this.secscore = secscore;
-        this.finalscore = finalscore;
-        this.finalgrade = finalgrade;
+    private String finalcampus;
+
+    private String finalclasses;
+
+    private String finalproject;
+
+    private String finalprofession;
+
+    private String stuname;
+
+    private String stunumber;
+
+    private String stusex;
+
+    @Override
+    public String getScore(){
+        return this.secscore;
     }
 
-    public FinalSolo() {
-        super();
+    @Override
+    public void setGrade(double grade){
+        this.finalscore=grade;
     }
 
     public Integer getId() {
@@ -39,12 +56,12 @@ public class FinalSolo {
         this.soloid = soloid;
     }
 
-    public Double getSecscore() {
+    public String getSecscore() {
         return secscore;
     }
 
-    public void setSecscore(Double secscore) {
-        this.secscore = secscore;
+    public void setSecscore(String secscore) {
+        this.secscore = TimeUtil.get8bitTime(secscore);
     }
 
     public Double getFinalscore() {
@@ -55,11 +72,67 @@ public class FinalSolo {
         this.finalscore = finalscore;
     }
 
-    public Integer getFinalgrade() {
+    public Double getFinalgrade() {
         return finalgrade;
     }
 
-    public void setFinalgrade(Integer finalgrade) {
+    public void setFinalgrade(Double finalgrade) {
         this.finalgrade = finalgrade;
+    }
+
+    public String getFinalcampus() {
+        return finalcampus;
+    }
+
+    public void setFinalcampus(String finalcampus) {
+        this.finalcampus = finalcampus;
+    }
+
+    public String getFinalclasses() {
+        return finalclasses;
+    }
+
+    public void setFinalclasses(String finalclasses) {
+        this.finalclasses = finalclasses;
+    }
+
+    public String getFinalproject() {
+        return finalproject;
+    }
+
+    public void setFinalproject(String finalproject) {
+        this.finalproject = finalproject;
+    }
+
+    public String getFinalprofession() {
+        return finalprofession;
+    }
+
+    public void setFinalprofession(String finalprofession) {
+        this.finalprofession = finalprofession;
+    }
+
+    public String getStuname() {
+        return stuname;
+    }
+
+    public void setStuname(String stuname) {
+        this.stuname = stuname;
+    }
+
+    public String getStunumber() {
+        return stunumber;
+    }
+
+    public void setStunumber(String stunumber) {
+        this.stunumber = stunumber;
+    }
+
+    public String getStusex() {
+        return stusex;
+    }
+
+    public void setStusex(String stusex) {
+        this.stusex = stusex;
     }
 }

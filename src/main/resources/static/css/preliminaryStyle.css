@@ -1,0 +1,79 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body,html{
+    /*overflow-x: hidden;*/
+    background: rgb(245,245,245);
+}
+/*手机*/
+@media screen and (max-width: 767px){
+    .left-nav{
+        display: none;
+    }
+}
+/*平板*/
+@media screen and (min-width:768px) and (max-width: 991px){
+    .left-nav{
+        position: fixed;
+        width: 220px;
+        height: 100%;
+        background:#4C6F7B;
+    }
+    .main-body{
+        margin-left: 220px;
+    }
+}
+/*电脑*/
+@media screen and (min-width: 992px){
+    .left-nav{
+        position: fixed;
+        width: 220px;
+        height: 100%;
+        background:#4C6F7B;
+    }
+    .main-body{
+        margin-left: 220px;
+    }
+}
+.left-nav ul,li{
+    list-style: none;
+}
+.left-list-li{
+    width: 100%;
+    height: 50px;
+    overflow: hidden;
+    padding: 5px 8px;
+    cursor: pointer;
+    line-height: 40px;
+    transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease; /* Firefox 4 */
+    -webkit-transition: all 0.5s ease; /* Safari 和 Chrome */
+    -o-transition: all 0.5s ease; /* Opera */
+}
+.left-list-li:hover{
+    background: #255965;
+    border-left:#F1D18A 2px solid ;
+}
+.left-list-li:hover .list-title{
+    margin-left: 20px;
+}
+.left-list-li:nth-of-type(1){
+    margin-top: 10px;
+}
+.left-nav a{
+    text-decoration: none;
+    color: white;
+}
+.left-nav .left-list .list-title{
+    transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease; /* Firefox 4 */
+    -webkit-transition: all 0.5s ease; /* Safari 和 Chrome */
+    -o-transition: all 0.5s ease; /* Opera */
+}
+.body-head{
+    color: rgba(115,135,156,1);
+}
+.form-unit{
+    margin-top: 8px;
+}

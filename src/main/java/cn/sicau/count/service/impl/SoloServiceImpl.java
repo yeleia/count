@@ -16,26 +16,6 @@ import java.util.List;
 public class SoloServiceImpl implements SoloService {
     @Autowired
     private SoloMapper soloMapper;
-    @Override
-    public String addSoloScore(Solo solo) {
-        try {
-            soloMapper.insert(solo);
-            return "success";
-        }catch (Exception e){
-            return "error";
-        }
-}
-
-    @Override
-    public String updateSoloScore(Solo solo) {
-
-        try {
-            soloMapper.updateByPrimaryKeySelective(solo);
-            return "success";
-        }catch (Exception e){
-            return "error";
-        }
-    }
 
     @Override
     public Integer deleteById(Integer id) {
@@ -43,8 +23,60 @@ public class SoloServiceImpl implements SoloService {
         return soloMapper.deleteByPrimaryKey(id);
     }
 
-  /*  @Override
-    public List<Solo> getAllBoyHundredScore() {
-        return soloMapper.getAllBoyOneHundredScore();
-    }*/
+    @Override
+    public List<Solo> getSoloByParameter(Solo solo) {
+        return soloMapper.getByParameter(solo);
+    }
+
+    @Override
+    public List<Solo> getByCampusPro(Solo solo) {
+        return soloMapper.getByCampusPro(solo);
+    }
+
+    @Override
+    public List<Solo> getByCampusProAse(Solo solo) {
+        return soloMapper.getByCampusProAse(solo);
+    }
+
+    @Override
+    public List<Solo> getByAse(Solo solo) {
+        return soloMapper.getByPaAse(solo);
+    }
+
+    @Override
+    public void updateGradeById(Solo solo) {
+        soloMapper.updateGradeById(solo);
+    }
+
+    @Override
+    public Solo getById(Solo solo) {
+        return soloMapper.selectByPrimaryKey(solo);
+    }
+
+    @Override
+    public List<Solo> getByClasses(String classes) {
+        return soloMapper.getByClasses(classes);
+    }
+
+    @Override
+    public List<Solo> getAll() {
+        return soloMapper.getAll();
+    }
+
+    @Override
+    public List<Solo> getByStuNumber(String usernumber) {
+        return soloMapper.getByStuNumber(usernumber);
+    }
+
+    @Override
+    public List<Solo> getByProSex(Solo solo) {
+        return soloMapper.getByProSex(solo);
+    }
+
+    @Override
+    public List<Solo> getByProSexAsc(Solo solo) {
+        return soloMapper.getByProSexAsc(solo);
+    }
+
+
 }

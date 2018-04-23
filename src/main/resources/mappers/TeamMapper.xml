@@ -16,7 +16,7 @@
     id, teamCampus, teamProject, teamClass, teamProfession, teamScore, teamGrade
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from team
     where id = #{id,jdbcType=INTEGER}
@@ -25,18 +25,46 @@
       SELECT * FROM team WHERE teamProject=#{teamproject} and teamClass=#{teamclass}
     </select>
   <select id="getAllTeamScore" resultType="cn.sicau.count.domain.Team">
-    SELECT * FROM team
+    SELECT * FROM team limit #{tempPage},#{pageCapacity}
+  </select>
+    <select id="getByParameter" resultType="cn.sicau.count.domain.Team">
+      SELECT * FROM team WHERE
+      <if test="teamcampus!=null and teamcampus!=''">
+        teamCampus=#{teamcampus}
+      </if>
+      <if test="teamproject!=null and teamproject!=''">
+        and teamProject=#{teamproject}
+      </if>
+      order by teamScore
+    </select>
+    <select id="count" resultType="java.lang.Integer">
+      SELECT count(*) FROM team
+    </select>
+    <select id="getbyCampusPro" resultType="cn.sicau.count.domain.Team">
+      SELECT * FROM team WHERE teamCampus=#{teamcampus} and teamProject=#{teamproject} order by teamScore desc
+    </select>
+    <select id="getByClasses" resultType="cn.sicau.count.domain.Team">
+      SELECT * from team WHERE teamClass=#{teamclass}
+    </select>
+  <select id="getByPro" resultType="cn.sicau.count.domain.Team">
+    SELECT * from team WHERE teamProject=#{teamproject} order by teamScore desc
+  </select>
+  <select id="getByProAsc" resultType="cn.sicau.count.domain.Team">
+     SELECT * from team WHERE teamProject=#{teamproject} order by teamScore
+  </select>
+  <select id="getByCampusProAsc" resultType="cn.sicau.count.domain.Team">
+    SELECT * FROM team WHERE teamCampus=#{teamcampus} and teamProject=#{teamproject} order by teamScore
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from team
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="cn.sicau.count.domain.Team">
-    insert into team (id, teamCampus, teamProject, 
-      teamClass, teamProfession, teamScore, 
+    insert into team (id, teamCampus, teamProject,
+      teamClass, teamProfession, teamScore,
       teamGrade)
-    values (#{id,jdbcType=INTEGER}, #{teamcampus,jdbcType=VARCHAR}, #{teamproject,jdbcType=VARCHAR}, 
-      #{teamclass,jdbcType=VARCHAR}, #{teamprofession,jdbcType=VARCHAR}, #{teamscore,jdbcType=DOUBLE}, 
+    values (#{id,jdbcType=INTEGER}, #{teamcampus,jdbcType=VARCHAR}, #{teamproject,jdbcType=VARCHAR},
+      #{teamclass,jdbcType=VARCHAR}, #{teamprofession,jdbcType=VARCHAR}, #{teamscore,jdbcType=DOUBLE},
       #{teamgrade,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="cn.sicau.count.domain.Team">
@@ -121,5 +149,8 @@
       teamScore = #{teamscore,jdbcType=DOUBLE},
       teamGrade = #{teamgrade,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateGradeById" parameterType="cn.sicau.count.domain.Team">
+    UPDATE team SET teamGrade=#{teamgrade} where id=#{id}
   </update>
 </mapper>

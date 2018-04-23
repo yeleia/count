@@ -11,6 +11,9 @@ import java.util.List;
 public interface RecordService {
     String  addSchoolRecord(Record record);
     String updateSchoolRecord(Record record);
-    List<Record> getAll();
+    List<Record> getAll(Integer tempPage,Integer pageCapacity);
+    Integer count();
     Integer deleteRecord(Integer id);
+    //根据项目查询校级录
+    Record getByPro(Record record);
 }

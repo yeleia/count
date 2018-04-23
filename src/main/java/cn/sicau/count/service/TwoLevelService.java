@@ -11,6 +11,8 @@ import java.util.List;
 public interface TwoLevelService {
     String addTwoLevel(TwoLevel twoLevel);
     String updateLevel(TwoLevel twoLevel);
-    List<TwoLevel> getAll();
+    List<TwoLevel> getAll(Integer tempPage,Integer pageCapacity);
     Integer  deleteById(Integer id);
+    Integer count();
+    TwoLevel getByProSex(TwoLevel twoLevel);
 }

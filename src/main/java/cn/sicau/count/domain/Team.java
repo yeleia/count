@@ -84,4 +84,17 @@ public class Team {
     public void setTeamgrade(Integer teamgrade) {
         this.teamgrade = teamgrade;
     }
+
+    @Override
+    public String toString() {
+        return "Team{" +
+                "id=" + id +
+                ", teamcampus='" + teamcampus + '\'' +
+                ", teamproject='" + teamproject + '\'' +
+                ", teamclass='" + teamclass + '\'' +
+                ", teamprofession='" + teamprofession + '\'' +
+                ", teamscore=" + teamscore +
+                ", teamgrade=" + teamgrade +
+                '}';
+    }
 }

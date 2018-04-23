@@ -5,13 +5,21 @@
     <constructor>
       <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="soloId" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="secScore" javaType="java.lang.Double" jdbcType="DOUBLE" />
+      <arg column="secScore" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="finalScore" javaType="java.lang.Double" jdbcType="DOUBLE" />
-      <arg column="finalGrade" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="finalGrade" javaType="java.lang.Double" jdbcType="DOUBLE" />
+      <arg column="finalCampus" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="finalClasses" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="finalProject" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="finalProfession" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="stuName" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="stuNumber" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="stuSex" javaType="java.lang.String" jdbcType="VARCHAR" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List">
-    id, soloId, secScore, finalScore, finalGrade
+    id, soloId, secScore, finalScore, finalGrade, finalCampus, finalClasses, finalProject, 
+    finalProfession, stuName, stuNumber, stuSex
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -19,15 +27,71 @@
     from finalSolo
     where id = #{id,jdbcType=INTEGER}
   </select>
+    <select id="getByParameter" resultType="cn.sicau.count.domain.FinalSolo">
+      SELECT * FROM finalSolo WHERE
+      <if test="finalproject!=null and finalproject!=''">
+        finalProject=#{finalproject}
+      </if>
+      <if test="stusex!=null and stusex!=''">
+         and   stuSex=#{stusex}
+      </if>
+      order by secScore desc
+    </select>
+  <select id="getAll" resultType="cn.sicau.count.domain.FinalSolo">
+    SELECT * FROM finalSolo limit #{tempPage},#{pageCapacity}
+  </select>
+  <select id="count" resultType="java.lang.Integer">
+    SELECT count(*) FROM finalSolo
+  </select>
+  <select id="getByNumberPro" resultType="cn.sicau.count.domain.FinalSolo">
+    SELECT * from finalSolo WHERE finalProject=#{finalproject} and stuNumber=#{stunumber}
+  </select>
+  <select id="getByPro" resultType="cn.sicau.count.domain.FinalSolo">
+    SELECT * FROM finalSolo WHERE finalProject=#{finalproject} order by secScore desc
+  </select>
+  <select id="getByClasses" resultType="cn.sicau.count.domain.FinalSolo">
+    SELECT * from finalSolo WHERE finalClasses=#{finalclasses}
+  </select>
+  <select id="getAlls" resultType="cn.sicau.count.domain.FinalSolo">
+    SELECT * from finalSolo
+  </select>
+    <select id="getByAse" resultType="cn.sicau.count.domain.FinalSolo">
+   SELECT * FROM finalSolo WHERE
+      <if test="finalproject!=null and finalproject!=''">
+        finalProject=#{finalproject}
+      </if>
+      <if test="stusex!=null and stusex!=''">
+        and   stuSex=#{stusex}
+      </if>
+      order by secScore
+    </select>
+  <select id="getByProAsc" resultType="cn.sicau.count.domain.FinalSolo">
+    SELECT * FROM finalSolo WHERE finalProject=#{finalproject} order by secScore
+  </select>
+    <select id="getByStuNumber" resultType="cn.sicau.count.domain.FinalSolo">
+      SELECT * from finalSolo WHERE stuNumber=#{stunumber}
+    </select>
+  <select id="getByProSex" resultType="cn.sicau.count.domain.FinalSolo">
+    SELECT * FROM finalSolo WHERE finalProject=#{finalproject} and stuSex=#{stusex} order by finalScore desc
+  </select>
+  <select id="getByProSexAsc" resultType="cn.sicau.count.domain.FinalSolo">
+    SELECT * FROM finalSolo WHERE finalProject=#{finalproject} and stuSex=#{stusex} order by finalScore
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from finalSolo
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="cn.sicau.count.domain.FinalSolo">
     insert into finalSolo (id, soloId, secScore, 
-      finalScore, finalGrade)
-    values (#{id,jdbcType=INTEGER}, #{soloid,jdbcType=INTEGER}, #{secscore,jdbcType=DOUBLE}, 
-      #{finalscore,jdbcType=DOUBLE}, #{finalgrade,jdbcType=INTEGER})
+      finalScore, finalGrade, finalCampus, 
+      finalClasses, finalProject, finalProfession, 
+      stuName, stuNumber, stuSex
+      )
+    values (#{id,jdbcType=INTEGER}, #{soloid,jdbcType=INTEGER}, #{secscore,jdbcType=VARCHAR}, 
+      #{finalscore,jdbcType=DOUBLE}, #{finalgrade,jdbcType=DOUBLE}, #{finalcampus,jdbcType=VARCHAR},
+      #{finalclasses,jdbcType=VARCHAR}, #{finalproject,jdbcType=VARCHAR}, #{finalprofession,jdbcType=VARCHAR}, 
+      #{stuname,jdbcType=VARCHAR}, #{stunumber,jdbcType=VARCHAR}, #{stusex,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="cn.sicau.count.domain.FinalSolo">
     insert into finalSolo
@@ -47,6 +111,27 @@
       <if test="finalgrade != null">
         finalGrade,
       </if>
+      <if test="finalcampus != null">
+        finalCampus,
+      </if>
+      <if test="finalclasses != null">
+        finalClasses,
+      </if>
+      <if test="finalproject != null">
+        finalProject,
+      </if>
+      <if test="finalprofession != null">
+        finalProfession,
+      </if>
+      <if test="stuname != null">
+        stuName,
+      </if>
+      <if test="stunumber != null">
+        stuNumber,
+      </if>
+      <if test="stusex != null">
+        stuSex,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -56,13 +141,34 @@
         #{soloid,jdbcType=INTEGER},
       </if>
       <if test="secscore != null">
-        #{secscore,jdbcType=DOUBLE},
+        #{secscore,jdbcType=VARCHAR},
       </if>
       <if test="finalscore != null">
         #{finalscore,jdbcType=DOUBLE},
       </if>
       <if test="finalgrade != null">
-        #{finalgrade,jdbcType=INTEGER},
+        #{finalgrade,jdbcType=DOUBLE},
+      </if>
+      <if test="finalcampus != null">
+        #{finalcampus,jdbcType=VARCHAR},
+      </if>
+      <if test="finalclasses != null">
+        #{finalclasses,jdbcType=VARCHAR},
+      </if>
+      <if test="finalproject != null">
+        #{finalproject,jdbcType=VARCHAR},
+      </if>
+      <if test="finalprofession != null">
+        #{finalprofession,jdbcType=VARCHAR},
+      </if>
+      <if test="stuname != null">
+        #{stuname,jdbcType=VARCHAR},
+      </if>
+      <if test="stunumber != null">
+        #{stunumber,jdbcType=VARCHAR},
+      </if>
+      <if test="stusex != null">
+        #{stusex,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -73,13 +179,34 @@
         soloId = #{soloid,jdbcType=INTEGER},
       </if>
       <if test="secscore != null">
-        secScore = #{secscore,jdbcType=DOUBLE},
+        secScore = #{secscore,jdbcType=VARCHAR},
       </if>
       <if test="finalscore != null">
         finalScore = #{finalscore,jdbcType=DOUBLE},
       </if>
       <if test="finalgrade != null">
-        finalGrade = #{finalgrade,jdbcType=INTEGER},
+        finalGrade = #{finalgrade,jdbcType=DOUBLE},
+      </if>
+      <if test="finalcampus != null">
+        finalCampus = #{finalcampus,jdbcType=VARCHAR},
+      </if>
+      <if test="finalclasses != null">
+        finalClasses = #{finalclasses,jdbcType=VARCHAR},
+      </if>
+      <if test="finalproject != null">
+        finalProject = #{finalproject,jdbcType=VARCHAR},
+      </if>
+      <if test="finalprofession != null">
+        finalProfession = #{finalprofession,jdbcType=VARCHAR},
+      </if>
+      <if test="stuname != null">
+        stuName = #{stuname,jdbcType=VARCHAR},
+      </if>
+      <if test="stunumber != null">
+        stuNumber = #{stunumber,jdbcType=VARCHAR},
+      </if>
+      <if test="stusex != null">
+        stuSex = #{stusex,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -87,9 +214,19 @@
   <update id="updateByPrimaryKey" parameterType="cn.sicau.count.domain.FinalSolo">
     update finalSolo
     set soloId = #{soloid,jdbcType=INTEGER},
-      secScore = #{secscore,jdbcType=DOUBLE},
+      secScore = #{secscore,jdbcType=VARCHAR},
       finalScore = #{finalscore,jdbcType=DOUBLE},
-      finalGrade = #{finalgrade,jdbcType=INTEGER}
+      finalGrade = #{finalgrade,jdbcType=DOUBLE},
+      finalCampus = #{finalcampus,jdbcType=VARCHAR},
+      finalClasses = #{finalclasses,jdbcType=VARCHAR},
+      finalProject = #{finalproject,jdbcType=VARCHAR},
+      finalProfession = #{finalprofession,jdbcType=VARCHAR},
+      stuName = #{stuname,jdbcType=VARCHAR},
+      stuNumber = #{stunumber,jdbcType=VARCHAR},
+      stuSex = #{stusex,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateFinalScoreById" parameterType="cn.sicau.count.domain.FinalSolo">
+    UPDATE finalSolo set finalScore=#{finalscore}, finalGrade=#{finalgrade} where id=#{id}
   </update>
 </mapper>

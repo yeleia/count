@@ -11,24 +11,74 @@
       <arg column="userName" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="userNumber" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="userSex" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="score" javaType="java.lang.Double" jdbcType="DOUBLE" />
-      <arg column="grade" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="score" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="grade" javaType="java.lang.Double" jdbcType="DOUBLE" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List">
     id, campus, classes, project, profession, userName, userNumber, userSex, score, grade
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey"  resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from solo
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER} and project=#{project}
   </select>
     <select id="selectByUserNummberPro" resultType="cn.sicau.count.domain.Solo">
       SELECT * FROM solo WHERE userNumber=#{usernumber} and project=#{project}
     </select>
-  <select id="getAllSoloScore" resultType="cn.sicau.count.domain.Solo">
+  <select id="getAllSoloScore" parameterType="map" resultType="cn.sicau.count.domain.Solo">
+    SELECT * FROM solo limit #{tempPage},#{pageCapacity}
+  </select>
+  <select id="getCount" resultType="java.lang.Integer">
+    SELECT count(*) FROM solo
+  </select>
+    <select id="getByParameter" resultType="cn.sicau.count.domain.Solo">
+      SELECT * from solo WHERE
+       <if test="campus!=null and campus!=''">
+         campus=#{campus}
+       </if>
+      <if test="project!=null and project!=''">
+        and project=#{project}
+      </if>
+      <if test="usersex!=null and usersex!=''">
+        and userSex=#{usersex}
+      </if>
+       order by score
+    </select>
+  <select id="getByCampusPro" resultType="cn.sicau.count.domain.Solo">
+    SELECT * from solo WHERE campus=#{campus} and project=#{project} order by score desc
+  </select>
+  <select id="getByClasses" resultType="cn.sicau.count.domain.Solo">
+    SELECT * from solo WHERE classes=#{classes}
+  </select>
+  <select id="getAll" resultType="cn.sicau.count.domain.Solo">
     SELECT * FROM solo
+  </select>
+  <select id="getByPaAse" resultType="cn.sicau.count.domain.Solo">
+    SELECT * from solo WHERE
+    <if test="campus!=null and campus!=''">
+      campus=#{campus}
+    </if>
+    <if test="project!=null and project!=''">
+      and project=#{project}
+    </if>
+    <if test="usersex!=null and usersex!=''">
+      and userSex=#{usersex}
+    </if>
+    order by score desc
+  </select>
+  <select id="getByCampusProAse" resultType="cn.sicau.count.domain.Solo">
+    SELECT * from solo WHERE campus=#{campus} and project=#{project} order by score
+  </select>
+  <select id="getByStuNumber" resultType="cn.sicau.count.domain.Solo">
+    SELECT * from solo WHERE userNumber=#{usernumber}
+  </select>
+  <select id="getByProSex" resultType="cn.sicau.count.domain.Solo">
+    SELECT * from solo WHERE userSex=#{usersex} and project=#{project} and campus=#{campus} order by score desc
+  </select>
+  <select id="getByProSexAsc" resultType="cn.sicau.count.domain.Solo">
+    SELECT * from solo WHERE userSex=#{usersex} and project=#{project} and campus=#{campus} order by score
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from solo
@@ -41,8 +91,8 @@
       grade)
     values (#{id,jdbcType=INTEGER}, #{campus,jdbcType=VARCHAR}, #{classes,jdbcType=VARCHAR}, 
       #{project,jdbcType=VARCHAR}, #{profession,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
-      #{usernumber,jdbcType=VARCHAR}, #{usersex,jdbcType=VARCHAR}, #{score,jdbcType=DOUBLE}, 
-      #{grade,jdbcType=INTEGER})
+      #{usernumber,jdbcType=VARCHAR}, #{usersex,jdbcType=VARCHAR}, #{score,jdbcType=DOUBLE},
+      #{grade,jdbcType=DOUBLE})
   </insert>
   <insert id="insertSelective" parameterType="cn.sicau.count.domain.Solo">
     insert into solo
@@ -107,7 +157,7 @@
         #{score,jdbcType=DOUBLE},
       </if>
       <if test="grade != null">
-        #{grade,jdbcType=INTEGER},
+        #{grade,jdbcType=DOUBLE},
       </if>
     </trim>
   </insert>
@@ -139,7 +189,7 @@
         score = #{score,jdbcType=DOUBLE},
       </if>
       <if test="grade != null">
-        grade = #{grade,jdbcType=INTEGER},
+        grade = #{grade,jdbcType=DOUBLE},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -154,7 +204,10 @@
       userNumber = #{usernumber,jdbcType=VARCHAR},
       userSex = #{usersex,jdbcType=VARCHAR},
       score = #{score,jdbcType=DOUBLE},
-      grade = #{grade,jdbcType=INTEGER}
+      grade = #{grade,jdbcType=DOUBLE}
     where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateGradeById" parameterType="cn.sicau.count.domain.Solo">
+    UPDATE solo set grade=#{grade} where id=#{id}
   </update>
 </mapper>

@@ -1,6 +1,10 @@
 package cn.sicau.count.domain;
 
-public class Solo {
+import cn.sicau.count.utils.ScoreInterface;
+import cn.sicau.count.utils.TimeUtil;
+
+public class Solo implements ScoreInterface{
+
     private Integer id;
 
     private String campus;
@@ -17,11 +21,12 @@ public class Solo {
 
     private String usersex;
 
-    private Double score;
+    private String score;
 
-    private Integer grade;
+    //TODO chenge to double
+    private Double grade;
 
-    public Solo(Integer id, String campus, String classes, String project, String profession, String username, String usernumber, String usersex, Double score, Integer grade) {
+    public Solo(Integer id, String campus, String classes, String project, String profession, String username, String usernumber, String usersex, String score, Double grade) {
         this.id = id;
         this.campus = campus;
         this.classes = classes;
@@ -102,19 +107,22 @@ public class Solo {
         this.usersex = usersex == null ? null : usersex.trim();
     }
 
-    public Double getScore() {
+    @Override
+    public void setGrade(double grade) {
+        this.grade=grade;
+    }
+
+    @Override
+    public String getScore() {
         return score;
     }
 
-    public void setScore(Double score) {
-        this.score = score;
+    public void setScore(String score) {
+        this.score = TimeUtil.get8bitTime(score);
     }
 
-    public Integer getGrade() {
+    public Double getGrade() {
         return grade;
     }
 
-    public void setGrade(Integer grade) {
-        this.grade = grade;
-    }
 }

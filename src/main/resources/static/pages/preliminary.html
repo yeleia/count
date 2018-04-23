@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>四川农业大学校运会——后台管理</title>
+    <link rel="shortcut icon" href="../images/logo.ico">
+    <link rel="stylesheet" href="../vendors/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../vendors/paging/css/jquery.pagination.css">
+    <link rel="stylesheet" href="../build/css/preliminaryStyle.css">
+</head>
+<body>
+
+<div>
+    <div class="left-nav">
+        <div align="center" style="color:#ffffff;margin-top: 20px;">
+            <img src="../images/sicau.png" alt="" style="width: 70px;">
+            <h3>四川农业大学</h3>
+            <hr style="height: 2px;box-shadow: 1px 1px 5px #888888;background-color: #032A33; width: 90%">
+        </div>
+        <ul class="left-list">
+            <li class="left-list-li" onclick="location='preliminary.html';">
+                <a class="list-title"><span class="glyphicon glyphicon-pawn" aria-hidden="true"></span>&nbsp;单项录入</a>
+            </li>
+            <li class="left-list-li" onclick="location='preliminary-group.html';">
+                <a class="list-title"><span class="glyphicon glyphicon-fire" aria-hidden="true"></span>&nbsp;集体项录入</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="main-body">
+    <div>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.html">后台管理</a>
+                </div>
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown active">
+                            <a href="preliminary.html" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">预赛<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="preliminary.html">单项</a></li>
+                                <li><a href="preliminary-group.html">集体项</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="finals.html" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">决赛<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="finals.html">单项</a></li>
+                                <li><a href="finals-schoolLevel.html">校记录</a></li>
+                                <li><a href="finals-twoLevel.html">二级运动员记录</a></li>
+                                <li><a href="finals-waiver.html">弃权记录</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">用户 <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="javascript:signOut();">退出登录</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div style="padding: 5px 20px;" id="mainPage">
+        <blockquote style="padding: 1px 20px;background-color: #FCFCFC">
+            <div class="page-header">
+                <h3>预赛成绩——单项</h3>
+            </div>
+        </blockquote>
+        <button type="button" class="btn btn-primary" id="inputScore">
+            单个成绩录入
+        </button>
+        <button type="button" class="btn btn-primary" id="batchInput">
+            批量成绩导入
+        </button>
+        <div class="table-responsive" style="background-color: white;margin-top: 10px;">
+            <table id="table" data-classes="table table-hover table-condensed"></table>
+            <table class="table table-hover table-bordered">
+                <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>姓名</th>
+                    <th>性别</th>
+                    <th>学号</th>
+                    <th>校区</th>
+                    <th>学院</th>
+                    <th>专业</th>
+                    <th>参赛项目</th>
+                    <th>成绩</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody id="table-body">
+
+                </tbody>
+            </table>
+        </div>
+        <div align="center">
+            <div id="pagination" class=""></div>
+        </div>
+    </div>
+</div>
+<div class="copyRight" align="center">
+    © 2018 Powered by <a href="http://www.wingstudio.org">WingStudio</a>
+</div>
+<!-- Modal 单个导入-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">成绩录入</h4>
+            </div>
+            <div class="modal-body">
+                <form action="" id="uploadSolo">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="col-md-12 col-sm-12 col-xs-12 form-unit">
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="sports">学号<span>*</span></label>
+                                        <div class="col-md-7 col-sm-7 col-xs-12">
+                                            <input type="text" id="stu_id" name="stu_id" class="form-control col-md-7 col-xs-12" placeholder="请输入学号">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12 form-unit">
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="sports">姓名<span>*</span></label>
+                                        <div class="col-md-7 col-sm-7 col-xs-12">
+                                            <input type="text" id="stu_name" name="stu_name" class="form-control col-md-7 col-xs-12" placeholder="请输入姓名">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12 form-unit">
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="sports">校区<span>*</span></label>
+                                        <div class="col-md-7 col-sm-7 col-xs-12">
+                                            <select id="campus"  name="campus" class="form-control col-md-7 col-xs-12">
+                                                <option value="">请选择校区</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12 form-unit">
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="sports">学院<span>*</span></label>
+                                        <div class="col-md-7 col-sm-7 col-xs-12">
+                                            <select id="college"  name="college" class="form-control col-md-7 col-xs-12">
+                                                <option value="">请先选择校区</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12 form-unit">
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="sports">专业<span>*</span></label>
+                                        <div class="col-md-7 col-sm-7 col-xs-12">
+                                            <select id="major"  name="major" class="form-control col-md-7 col-xs-12">
+                                                <option value="">请先选择学院</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12 form-unit">
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="sports">性别<span>*</span></label>
+                                        <div class="col-md-7 col-sm-7 col-xs-12">
+                                            <select id="sex"  name="sex" class="form-control col-md-7 col-xs-12">
+                                                <option value="男">男</option>
+                                                <option value="女">女</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12 form-unit">
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="sports">比赛项目<span style="visibility: hidden">*</span></label>
+                                        <div class="col-md-7 col-sm-7 col-xs-12">
+                                            <select id="sports"  name="sports" class="form-control col-md-7 col-xs-12">
+                                                <option value="">请先选择性别</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12 form-unit">
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="sports">成绩<span>*</span></label>
+                                        <div class="col-md-7 col-sm-7 col-xs-12">
+                                            <input type="text" id="score" name="score" class="form-control col-md-7 col-xs-12" placeholder="请输入成绩">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" id="modalUpload">提交</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--批量导入Modal-->
+<div class="modal fade" id="myBatchModal" tabindex="-1" role="dialog" aria-labelledby="myBatchModalLabel" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myBatchModalLabel">批量成绩录入</h4>
+            </div>
+            <div class="modal-body">
+                <div class="bg-info" style="padding-left: 20px;padding-bottom:20px;padding-top: 20px;">
+                    <b>操作提示：</b>请先从此处下载模板，为增加操作效率，请按照模板内要求进行成绩录入。
+                </div>
+                <div class="bg-success" style="margin-top:10px;padding-left: 20px;padding-bottom:10px;padding-top: 10px;">
+                    <button type="button" class="btn btn-success" onclick="downModal()" style="margin-top: 10px;margin-bottom: 10px;height: 33px;">下载模板</button>
+                    <input type="file" id="inputFile" accept=".xlsx,.xls,.xltx,.xlsm,.xltm,.xlsb,.xlam" onchange="readFile(this)" style="display: inline;">
+                </div>
+                <div id="readFileMsg" align="center" style="margin-top: 10px;padding-bottom:10px;padding-top: 10px;display: none;"></div>
+                <div id="showBtn" style="display: none;margin-top: 10px;" align="center">
+                    <button type="button" class="btn btn-warning btn-sm" onclick="showError()">展开/隐藏失败数据</button>
+                    <button type="button" class="btn btn-success btn-sm" onclick="showSuccess()">展开/隐藏成功数据</button>
+                </div>
+                <div id="errorTable" style="display: none;">
+                    <div class="table-responsive" style="background-color: white;margin-top: 10px;">
+                        <table class="table table-hover table-bordered">
+                            <thead>
+                            <tr>
+                                <th>姓名</th>
+                                <th>性别</th>
+                                <th>学号</th>
+                                <th>校区</th>
+                                <th>学院</th>
+                                <th>专业</th>
+                                <th>参赛项目</th>
+                                <th>成绩</th>
+                                <th>错误原因</th>
+                            </tr>
+                            </thead>
+                            <tbody id="error-table-body">
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div id="successTable" style="display: none;">
+                    <div class="table-responsive" style="background-color: white;margin-top: 10px;">
+                        <table class="table table-hover table-bordered">
+                            <thead>
+                            <tr>
+                                <th>姓名</th>
+                                <th>性别</th>
+                                <th>学号</th>
+                                <th>校区</th>
+                                <th>学院</th>
+                                <th>专业</th>
+                                <th>参赛项目</th>
+                                <th>成绩</th>
+                            </tr>
+                            </thead>
+                            <tbody id="success-table-body">
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div id="upFailedTable" style="display: none;">
+                    <div class="table-responsive" style="background-color: white;margin-top: 10px;">
+                        <table class="table table-hover table-bordered">
+                            <thead>
+                            <tr>
+                                <th>姓名</th>
+                                <th>性别</th>
+                                <th>学号</th>
+                                <th>校区</th>
+                                <th>学院</th>
+                                <th>专业</th>
+                                <th>参赛项目</th>
+                                <th>成绩</th>
+                            </tr>
+                            </thead>
+                            <tbody id="upFailed-table-body">
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" id="modalBatchUpload">提交</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Small modal -->
+<div class="modal fade bs-example-modal-sm" id="mySmallModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="mySmallModalLabel">信息</h4>
+            </div>
+            <div class="modal-body">
+                是否确认退出
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary btn-sm" id="smallModalSure">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../vendors/jQuery/jquery-3.3.1.min.js"></script>
+<script src="../vendors/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<script src="../vendors/paging/js/jquery.pagination.min.js"></script>
+<script src="../vendors/excel/xlsx.full.min.js"></script>
+<script src="../build/js/readyPreliminary.js"></script>
+</body>
+</html>

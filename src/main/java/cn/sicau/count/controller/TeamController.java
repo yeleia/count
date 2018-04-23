@@ -2,6 +2,7 @@ package cn.sicau.count.controller;
 
 import cn.sicau.count.domain.Team;
 import cn.sicau.count.service.TeamService;
+import cn.sicau.count.utils.Page;
 import cn.sicau.count.utils.ReturnMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,6 +33,7 @@ public class TeamController {
     @ResponseBody
     public Map<String,Object> addTeamScoore(Team team){
         if ("success".equals(teamService.addTeamScore(team))){
+
            return ReturnMap.resultMap(200,"添加成功");
         }else {
            return ReturnMap.resultMap(500,"该学院的该项目成绩已经录入");
@@ -83,10 +85,11 @@ public class TeamController {
      */
     @RequestMapping("/getAllTeamScore")
     @ResponseBody
-    public Map<String,Object> getAllTeamScore(){
+    public Map<String,Object> getAllTeamScore(Page page){
         Map<String,Object> resultMap=new LinkedHashMap<>();
-        List<Team> teams=teamService.getAllTeamScore();
+        List<Team> teams=teamService.getAllTeamScore(page.getTempPage()*page.getPageCapacity(),page.getPageCapacity());
         resultMap.put("team",teams);
+        resultMap.put("count",teamService.count());
         return resultMap;
     }
 

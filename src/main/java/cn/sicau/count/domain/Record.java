@@ -1,15 +1,17 @@
 package cn.sicau.count.domain;
 
+import cn.sicau.count.utils.TimeUtil;
+
 public class Record {
     private Integer id;
 
     private String reproject;
 
-    private Double record;
+    private String  record;
 
     private String recordsex;
 
-    public Record(Integer id, String reproject, Double record, String recordsex) {
+    public Record(Integer id, String reproject, String record, String recordsex) {
         this.id = id;
         this.reproject = reproject;
         this.record = record;
@@ -36,12 +38,12 @@ public class Record {
         this.reproject = reproject == null ? null : reproject.trim();
     }
 
-    public Double getRecord() {
+    public String getRecord() {
         return record;
     }
 
-    public void setRecord(Double record) {
-        this.record = record;
+    public void setRecord(String record) {
+        this.record = TimeUtil.get8bitTime(record);
     }
 
     public String getRecordsex() {

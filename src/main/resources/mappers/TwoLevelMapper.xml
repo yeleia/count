@@ -5,7 +5,7 @@
     <constructor>
       <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="levelPro" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="levelScore" javaType="java.lang.Double" jdbcType="DOUBLE" />
+      <arg column="levelScore" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="levelSex" javaType="java.lang.String" jdbcType="VARCHAR" />
     </constructor>
   </resultMap>
@@ -19,7 +19,13 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
     <select id="getAll" resultType="cn.sicau.count.domain.TwoLevel">
-      SELECT * FROM twoLevel
+      SELECT * FROM twoLevel limit #{tempPage},#{pageCapacity}
+    </select>
+    <select id="count" resultType="java.lang.Integer">
+      SELECT count(*) from twoLevel
+    </select>
+    <select id="getByProSex" resultType="cn.sicau.count.domain.TwoLevel">
+      SELECT * from twoLevel WHERE levelPro=#{levelpro} and levelSex=#{levelsex}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from twoLevel
@@ -28,7 +34,7 @@
   <insert id="insert" parameterType="cn.sicau.count.domain.TwoLevel">
     insert into twoLevel (id, levelPro, levelScore, 
       levelSex)
-    values (#{id,jdbcType=INTEGER}, #{levelpro,jdbcType=VARCHAR}, #{levelscore,jdbcType=DOUBLE}, 
+    values (#{id,jdbcType=INTEGER}, #{levelpro,jdbcType=VARCHAR}, #{levelscore,jdbcType=VARCHAR}, 
       #{levelsex,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cn.sicau.count.domain.TwoLevel">
@@ -55,7 +61,7 @@
         #{levelpro,jdbcType=VARCHAR},
       </if>
       <if test="levelscore != null">
-        #{levelscore,jdbcType=DOUBLE},
+        #{levelscore,jdbcType=VARCHAR},
       </if>
       <if test="levelsex != null">
         #{levelsex,jdbcType=VARCHAR},
@@ -69,7 +75,7 @@
         levelPro = #{levelpro,jdbcType=VARCHAR},
       </if>
       <if test="levelscore != null">
-        levelScore = #{levelscore,jdbcType=DOUBLE},
+        levelScore = #{levelscore,jdbcType=VARCHAR},
       </if>
       <if test="levelsex != null">
         levelSex = #{levelsex,jdbcType=VARCHAR},
@@ -80,7 +86,7 @@
   <update id="updateByPrimaryKey" parameterType="cn.sicau.count.domain.TwoLevel">
     update twoLevel
     set levelPro = #{levelpro,jdbcType=VARCHAR},
-      levelScore = #{levelscore,jdbcType=DOUBLE},
+      levelScore = #{levelscore,jdbcType=VARCHAR},
       levelSex = #{levelsex,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>

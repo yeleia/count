@@ -6,7 +6,9 @@ import cn.sicau.count.service.RecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author yelei
@@ -18,10 +20,11 @@ public class RecordServiceImpl implements RecordService{
     private RecordMapper recordMapper;
     @Override
     public String  addSchoolRecord(Record record) {
-        try {
+        if (recordMapper.selectByProSex(record)==null)
+        {
             recordMapper.insert(record);
             return "success";
-        }catch (Exception e){
+        }else {
             return "error";
         }
 
@@ -38,12 +41,25 @@ public class RecordServiceImpl implements RecordService{
     }
 
     @Override
-    public List<Record> getAll() {
-        return recordMapper.getAll();
+    public List<Record> getAll(Integer tempPage,Integer pageCapacity) {
+        Map<String,Object> map=new HashMap<>();
+        map.put("tempPage",tempPage);
+        map.put("pageCapacity",pageCapacity);
+        return recordMapper.getAll(map);
+    }
+
+    @Override
+    public Integer count() {
+        return recordMapper.count();
     }
 
     @Override
     public Integer deleteRecord(Integer id) {
         return recordMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public Record getByPro(Record record) {
+        return recordMapper.selectByProSex(record);
     }
 }

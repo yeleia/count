@@ -4,6 +4,7 @@ import cn.sicau.count.domain.Record;
 import cn.sicau.count.domain.TwoLevel;
 import cn.sicau.count.service.RecordService;
 import cn.sicau.count.service.TwoLevelService;
+import cn.sicau.count.utils.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,11 +37,15 @@ public class RecordController {
     public Map<String,Object> addRecord(Record record){
         Map<String, Object> resultMap=new LinkedHashMap<>();
         String re=recordService.addSchoolRecord(record);
+        //System.out.println(re);
         if ("success".equals(re)){
             resultMap.put("status",200);
+            resultMap.put("message","添加成功");
+
         }else {
             System.out.println("该项目的记录已经存在");
             resultMap.put("status",500);
+            resultMap.put("message","该项目的记录已经存在哦");
         }
         return resultMap;
 
@@ -58,8 +63,10 @@ public class RecordController {
         String re=recordService.updateSchoolRecord(record);
         if ("success".equals(re)){
             resultMap.put("status",200);
+            resultMap.put("message","修改成功");
         }else {
             resultMap.put("status",500);
+            resultMap.put("message","该项目的记录已经存在哦");
         }
         return resultMap;
     }
@@ -70,10 +77,12 @@ public class RecordController {
      */
     @RequestMapping("/schoolLevel/getAll")
     @ResponseBody
-    public Map<String,Object> getAllRecord(){
+    public Map<String,Object> getAllRecord(Page page){
+        //System.out.println("yyyyyyyy");
         Map<String,Object> resultMap=new LinkedHashMap<>();
-        List<Record> records=recordService.getAll();
+        List<Record> records=recordService.getAll(page.getTempPage()*page.getPageCapacity(),page.getPageCapacity());
         resultMap.put("record",records);
+        resultMap.put("count",recordService.count());
         return resultMap;
     }
 
@@ -106,8 +115,10 @@ public class RecordController {
         String re=twoLevelService.addTwoLevel(twoLevel);
         if ("success".equals(re)){
             resultMap.put("status",200);
+            resultMap.put("message","添加成功");
         }else {
             resultMap.put("status",500);
+            resultMap.put("message","该项目的二级标准已经存在");
         }
         return resultMap;
     }
@@ -132,15 +143,16 @@ public class RecordController {
 
     /**
      * 得到二级运动员标准
-     * @param twoLevel
+     * @param
      * @return
      */
     @RequestMapping("/twoLevel/getAll")
     @ResponseBody
-    public Map<String,Object> twoGetAll(TwoLevel twoLevel){
+    public Map<String,Object> twoGetAll(Page page){
         Map<String,Object> resultMap=new LinkedHashMap<>();
-        List<TwoLevel> twoLevels=twoLevelService.getAll();
+        List<TwoLevel> twoLevels=twoLevelService.getAll(page.getTempPage()*page.getPageCapacity(),page.getPageCapacity());
         resultMap.put("twoLevel",twoLevels);
+        resultMap.put("count",twoLevelService.count());
         return resultMap;
     }
 
